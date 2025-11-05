@@ -1,7 +1,10 @@
-name: Build Flutter APK
+name: build
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
@@ -16,16 +19,18 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.3'  # غيّرها حسب نسخة Flutter عندك إذا مختلفة
+          flutter-version: '3.22.0'
 
       - name: Install dependencies
+        working-directory: simo_tarot_official
         run: flutter pub get
 
       - name: Build release APK
+        working-directory: simo_tarot_official
         run: flutter build apk --release
 
       - name: Upload APK artifact
-        uses: actions/upload-artifact@v4   # ✅ هذا هو التعديل الجديد
+        uses: actions/upload-artifact@v4
         with:
-          name: app-release-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: app-release
+          path: simo_tarot_official/build/app/outputs/flutter-apk/app-release.apk
