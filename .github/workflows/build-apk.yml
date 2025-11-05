@@ -22,15 +22,15 @@ jobs:
           flutter-version: '3.22.0'
 
       - name: Install dependencies
-        working-directory: simo_tarot_official
         run: flutter pub get
+        working-directory: .
 
       - name: Build release APK
-        working-directory: simo_tarot_official
         run: flutter build apk --release
+        working-directory: .
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release
-          path: simo_tarot_official/build/app/outputs/flutter-apk/app-release.apk
+          name: app-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
