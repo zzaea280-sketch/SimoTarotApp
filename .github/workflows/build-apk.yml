@@ -11,26 +11,25 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@v3
         with:
-          flutter-version: '3.22.0'
+          flutter-version: '3.22'
 
       - name: Install dependencies
         run: flutter pub get
-        working-directory: .
+        working-directory: ./simo_tarot_official  # تحديد المسار الصحيح للمجلد الفرعي الخاص بالمشروع
 
       - name: Build release APK
         run: flutter build apk --release
-        working-directory: .
+        working-directory: ./simo_tarot_official  # تحديد المسار للمجلد الفرعي الذي يحتوي على الكود
 
       - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
-          name: app-release-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: apk
+          path: ./simo_tarot_official/build/app/outputs/flutter-apk/app-release.apk  # التأكد من مسار الـ APK
